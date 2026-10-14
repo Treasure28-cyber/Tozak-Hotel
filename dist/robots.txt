@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://tozak-hotel-ughelli.tuned-bloom-7490.chatgpt.site/sitemap.xml

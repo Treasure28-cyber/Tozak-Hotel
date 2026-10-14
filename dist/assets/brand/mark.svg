@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64" role="img" aria-labelledby="title">
+  <title id="title">Tozak Hotel monogram</title>
+  <g fill="none" stroke="#103e43" stroke-width="2.8" stroke-linecap="square">
+    <path d="M12 53V27a20 20 0 0 1 40 0v26"/>
+    <path d="M7 57h50"/>
+  </g>
+  <path fill="#C39958" d="M19 24h26v5H35v23h-6V29H19z"/>
+</svg>

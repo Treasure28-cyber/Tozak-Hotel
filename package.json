@@ -1,0 +1,12 @@
+{
+  "name": "tozak-hotel",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "A responsive, six-page Tozak Hotel website with direct WhatsApp bookings",
+  "scripts": {
+    "build": "node scripts/build.mjs",
+    "dev": "node scripts/build.mjs && node scripts/serve.mjs",
+    "check": "node scripts/check.mjs"
+  }
+}
