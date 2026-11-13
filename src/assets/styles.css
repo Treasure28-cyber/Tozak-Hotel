@@ -389,3 +389,36 @@ address{font-style:normal}
 /* Reset inherited compact layouts for the new components. */
 .hero-photo::after{background:none}.hero-copy h1{font-size:clamp(52px,6.8vw,94px);line-height:1.06}.room-image img{height:100%}.room-card{max-width:none}.header-book{display:inline-flex}.room-cards{overflow:visible;scroll-snap-type:none;padding:0}.hero-caption{position:absolute;background:transparent}.hero{overflow:hidden}.hero-layout{display:flex;min-height:inherit}.hero-photo{height:100%;bottom:0}.hero-copy{padding-bottom:0}
 @media(max-width:759px){body{padding-bottom:0}.hero-copy h1{font-size:clamp(43px,10vw,62px)}.room-cards{display:grid}.hero-layout{padding-top:90px}.hero-photo{height:100%;bottom:0}.hero-caption{position:absolute}.room-card{max-width:none}.header-book{display:inline-flex}.cta-inner{padding-block:0}.site-header .header-inner{min-height:70px}.feature-photo{min-height:350px}.room-booking .stay-form .form-grid{grid-template-columns:1fr}.header-inner>.menu-toggle{margin:0}}
+
+/* Text branding and explicit mobile navigation controls. */
+.brand-wordmark{display:block;font:500 29px/1.1 var(--serif);letter-spacing:.035em;white-space:nowrap;color:var(--ink)}
+.brand-wordmark-light{color:var(--ivory)}
+.brand-wordmark>span{font:inherit;letter-spacing:inherit}
+.header-inner>.brand{display:flex;align-items:center;justify-content:center;min-height:44px}
+.site-footer .brand-wordmark{font-size:30px}
+.mobile-menu{padding:28px max(24px,calc((100vw - 560px)/2));background:var(--ivory);color:var(--deep)}
+.mobile-menu .menu-head{padding-bottom:22px;margin-bottom:24px;border-bottom:1px solid #102d3038}
+.menu-head>span{font:500 25px/1.2 var(--serif)}
+.mobile-menu nav{margin-bottom:28px;border-top:1px solid #102d302b}
+.mobile-menu nav a{display:flex;align-items:center;justify-content:space-between;gap:20px;min-height:72px;padding:18px 0;border-bottom:1px solid #102d302b;font-size:29px;line-height:1.25}
+.mobile-menu nav a::after{content:'↗';font:400 22px/1 var(--sans);color:var(--deep)}
+.mobile-menu nav a[aria-current="page"]{color:#775521}
+.mobile-menu nav a[aria-current="page"]::after{content:'•';color:#775521}
+.mobile-menu .menu-phone{display:block;width:fit-content;margin-top:20px;padding-block:10px;min-height:44px;font-size:15px}
+.mobile-menu .menu-close{flex-shrink:0;min-width:44px;min-height:44px;color:var(--deep)}
+@media(min-width:921px){
+ .hero-layout{justify-content:center}
+ .hero-copy{width:100%;max-width:1000px;margin-inline:auto;text-align:center}
+ .hero-copy>p:not(.eyebrow){max-width:620px;margin-inline:auto}
+ .hero-copy .eyebrow{max-width:none;margin-inline:auto}
+ .hero-actions{justify-content:center}
+ .hero::after{background:linear-gradient(0deg,#071e2670,#071e2660),linear-gradient(90deg,#071e2630,transparent 50%,#071e2630)}
+}
+@media(max-width:920px){
+ .header-inner>.menu-toggle{display:flex;align-items:center;justify-content:center;width:44px;height:44px;min-width:44px;min-height:44px;padding:10px;margin:0;border:0;background:transparent;color:var(--ivory);overflow:visible}
+ .menu-toggle .menu-icon{display:block;width:24px;height:24px;flex:0 0 24px;stroke:currentColor}
+ .brand-wordmark{font-size:25px;letter-spacing:.015em}
+ .header-inner{gap:8px;grid-template-columns:minmax(44px,1fr) auto minmax(44px,1fr)}
+ .nav-right{min-width:0}
+}
+@media(max-width:380px){.brand-wordmark{font-size:23px}.mobile-menu nav a{font-size:26px}}
