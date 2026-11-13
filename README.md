@@ -1,6 +1,6 @@
 # Tozak Hotel
 
-Six complete, responsive pages built with plain HTML, CSS and JavaScript. No runtime packages, framework or UI library. Each route is an actual HTML page; the site works on static hosting.
+Eight complete, responsive pages built with plain HTML, CSS and JavaScript. No runtime packages, framework or UI library. Each route is an actual HTML page; the site works on static hosting.
 
 ## Preview and edit
 
@@ -10,7 +10,7 @@ Six complete, responsive pages built with plain HTML, CSS and JavaScript. No run
 
 Use `src/content.mjs` to edit the hotel’s contact details, amenities, room categories, gallery and FAQs. Page templates live in `scripts/build.mjs`. Styles and interactions live in `src/assets/styles.css`, `src/assets/app.js` and `src/assets/booking.js`. Run the build after edits. Do not edit the generated HTML as a source of truth.
 
-Routes: `/`, `/rooms/`, `/facilities/`, `/gallery/`, `/about/`, `/contact/`. A custom 404 page is included.
+Routes: `/`, `/rooms/`, `/gallery/`, `/contact/` and `/rooms/{single-room,double-deluxe,executive-double,continental-suite}/`. `/about/` redirects to `/#welcome`; `/facilities/` redirects to `/#pool`. A custom 404 page is included.
 
 ## Push to GitHub and deploy to Vercel
 
@@ -25,9 +25,9 @@ You can also upload `dist` to any static host. Netlify, Cloudflare Pages and Git
 
 ## Booking and forms
 
-Every booking link uses WhatsApp number **2348064180488**, supplied in the brief. Confirm this number is connected to the hotel’s WhatsApp account before a public launch.
+Booking actions open an accessible enquiry dialog, then prepare a message for WhatsApp number **2348064180488**, supplied in the brief. Confirm this number is connected to the hotel’s WhatsApp account before a public launch.
 
-The home enquiry card validates dates and guests, then opens a prefilled WhatsApp message. The contact form validates name, phone/email and any dates, then provides a **Continue to WhatsApp** link. The visitor presses **Send** in WhatsApp. Neither form pretends to submit to a server or reserve a room. No backend or payment collection is included. Enquiries are not stored on this website.
+The booking dialog validates dates, guests and room preference, then offers a prefilled WhatsApp link. Room detail pages preselect the selected category. The contact form validates name, phone/email and any dates, then provides a **Continue to WhatsApp** link. The visitor presses **Send** in WhatsApp. Neither form pretends to submit to a server or reserve a room. No backend or payment collection is included. Enquiries are not stored on this website.
 
 Mobile navigation and the gallery use native modal dialogs with keyboard focus containment and Escape dismissal. The photo viewer supports left/right arrow keys, closes with Escape and restores focus. Gallery filters announce photograph counts. Contact maps load only when a visitor chooses to show them.
 

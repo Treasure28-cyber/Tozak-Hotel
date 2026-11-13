@@ -22,6 +22,7 @@ export function validateEnquiry(data,kind,today = localToday()) {
     else if(validDate(data.checkin) && data.checkout <= data.checkin) errors.checkout = 'Check-out must be after check-in.';
   }
   if(kind === 'availability' && !['1','2','3','4','5+'].includes(data.guests)) errors.guests = 'Please choose the number of guests.';
+  if(kind === 'availability' && !['Help me choose','Single Room','Double Deluxe','Executive Double','Continental Suite'].includes(data.room)) errors.room = 'Please choose a room preference.';
   return errors;
 }
 export function displayDate(value) {

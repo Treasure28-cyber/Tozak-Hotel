@@ -57,8 +57,7 @@ document.querySelectorAll('[data-booking-form]').forEach(form => {
     const link = result.querySelector('[data-message-link]');
     link.href = url;
     result.hidden = false;
-    if(kind === 'availability') window.open(url,'_blank','noopener,noreferrer');
-    else link.focus();
+    link.focus();
   });
 });
 
@@ -120,3 +119,22 @@ document.querySelector('[data-load-map]')?.addEventListener('click',event => {
   container.hidden = false;
   event.currentTarget.hidden = true;
 });
+
+const siteHeader = document.querySelector('.site-header');
+const updateHeader = () => siteHeader?.classList.toggle('is-scrolled',window.scrollY > 40);
+window.addEventListener('scroll',updateHeader,{passive:true});
+updateHeader();
+const bookingDialog = document.querySelector('#booking-dialog');
+let bookingTrigger;
+const selectedRoom = document.body.dataset.page.startsWith('rooms/') ? document.querySelector('h1')?.textContent : '';
+if(selectedRoom) document.querySelectorAll('[name="room"]').forEach(select=>select.value=selectedRoom);
+document.querySelectorAll('a[href="/contact/#stay"],.room-detail a[href="#stay"]').forEach(link=>link.addEventListener('click',event=>{
+  if(!bookingDialog) return;
+  event.preventDefault();
+  if(menu?.open) menu.close();
+  bookingTrigger=link;
+  bookingDialog.showModal();
+  syncScroll();
+}));
+bookingDialog?.querySelector('.booking-close').addEventListener('click',()=>bookingDialog.close());
+bookingDialog?.addEventListener('close',()=>{syncScroll();bookingTrigger?.focus();});

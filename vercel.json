@@ -4,5 +4,17 @@
   "installCommand": "",
   "buildCommand": "npm run build && npm run check",
   "outputDirectory": "dist",
-  "trailingSlash": true
+  "trailingSlash": true,
+  "redirects": [
+    {
+      "source": "/facilities",
+      "destination": "/#pool",
+      "permanent": true
+    },
+    {
+      "source": "/about",
+      "destination": "/#welcome",
+      "permanent": true
+    }
+  ]
 }

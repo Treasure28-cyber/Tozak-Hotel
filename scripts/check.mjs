@@ -2,7 +2,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import assert from 'node:assert/strict';
 import { validateEnquiry, messageForEnquiry, whatsappUrl, validDate, localToday } from '../src/assets/booking.js';
-const routes = ['', 'rooms', 'facilities', 'gallery', 'about', 'contact'];
+const routes = ['', 'rooms', 'gallery', 'contact', ...['single-room','double-deluxe','executive-double','continental-suite'].map(id=>'rooms/'+id)];
 const root = path.resolve('dist');
 let references = 0;
 for(const route of routes) {
@@ -53,4 +53,17 @@ assert.equal(url.searchParams.get('text'),message);
 assert.ok(message.includes('Double Deluxe') && message.includes('20 Dec 2026') && message.includes('Guests: 2'));
 assert.throws(()=>whatsappUrl('[2348064180488]',message));
 assert.equal((fs.readFileSync('dist/gallery/index.html','utf8').match(/data-photo="/g)||[]).length,9);
-console.log(`Passed: 6 routes, ${references} local references, structured data, form labels, 9 gallery photos and booking validation.`);
+console.log(`Passed: 8 routes, ${references} local references, structured data, form labels, 9 gallery photos and booking validation.`);
+
+for(const [route,target] of [['about','/#welcome'],['facilities','/#pool']]) assert.ok(fs.readFileSync('dist/'+route+'/index.html','utf8').includes('content="0;url='+target+'"'));
+for(const id of ['single-room','double-deluxe','executive-double','continental-suite']) {
+ assert.ok(fs.readFileSync('dist/rooms/index.html','utf8').includes('/rooms/'+id+'/'));
+ assert.ok(fs.readFileSync('dist/rooms/'+id+'/index.html','utf8').includes('data-booking-form="availability"'));
+}
+assert.ok(!fs.readFileSync('dist/index.html','utf8').includes('Guest experiences'),'No unpublished reviews');
+assert.ok(validateEnquiry({...stay,checkout:'2026-12-19'},'availability','2026-10-14').checkout);
+console.log('Passed: retired redirects, four detail routes, booking forms and unpublished reviews.');
+
+assert.ok(validateEnquiry({...stay,room:'Unknown category'},'availability','2026-10-14').room);
+const special=messageForEnquiry({...stay,message:'Arrival & request: late + luggage'},'availability');
+assert.equal(new URL(whatsappUrl('2348064180488',special)).searchParams.get('text'),special);

@@ -15,10 +15,10 @@ export const hotel = {
 // Room categories come from the hotel listing PDF supplied by the user.
 // Rates, exact image-to-category assignments, bed sizes and occupancy need hotel confirmation.
 export const rooms = [
-  { id: 'single-room', name: 'Single Room', note: 'For your own little retreat', description: 'A room to settle into after a day in Ughelli. Ask our team about the current room setup and availability for your dates.', image: 'room-oak.jpg' },
-  { id: 'double-deluxe', name: 'Double Deluxe', note: 'Make yourself comfortable', description: 'Take your time and make yourself at home. Our team can help you choose a Double Deluxe room for your stay.', image: 'room-oak.jpg' },
-  { id: 'executive-double', name: 'Executive Double', note: 'A stay at your own pace', description: 'Visiting for work or a few days away? Enquire about our Executive Double rooms and let us help you plan your visit.', image: 'room-twin.jpg' },
-  { id: 'continental-suite', name: 'Continental Suite', note: 'Something a little different', description: 'Explore a suite stay at Tozak. Message us for the current suite features, photographs and a direct quote.', image: 'room-twin.jpg' }
+  { id: 'single-room', name: 'Single Room', note: "The room that gets out of your way", description: "Everything you need. Nothing you don’t. The room that lets you get on with your stay.", image: 'room-oak.jpg' },
+  { id: 'double-deluxe', name: 'Double Deluxe', note: "Room to actually breathe", description: "More space, the same good value. The room you book when one night turns into two.", image: 'room-oak.jpg' },
+  { id: 'executive-double', name: 'Executive Double', note: "Built for the work trip that earns a good night", description: "Long day. Early start tomorrow. The Executive Double is built for exactly this kind of trip.", image: 'room-twin.jpg' },
+  { id: 'continental-suite', name: 'Continental Suite', note: "When the stay deserves more than ordinary", description: "When the occasion calls for more. The suite stay that makes the whole trip worth it.", image: 'room-twin.jpg' }
 ];
 
 export const amenities = [
@@ -50,3 +50,6 @@ export const faqs = [
   ['What is the cancellation policy?', 'Ask our team for the terms that apply to your booking, including deposits, payment and cancellation, before confirming your stay.'],
   ['Can I ask about a longer stay?', 'Of course. Send us your preferred dates and any special requests so we can discuss the room options with you.']
 ];
+
+// Publish only authentic reviews with an attribution and original source URL.
+export const reviews = [];
