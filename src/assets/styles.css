@@ -1,4 +1,4 @@
-/* Tozak Hotel — warm ivory, architectural teal, restrained gold. */
+﻿/* Tozak Hotel — warm ivory, architectural teal, restrained gold. */
 :root{--ivory:#fbf8f2;--paper:#fff;--teal:#103e43;--deep:#0a2e33;--ink:#14262b;--muted:#576664;--gold:#c39958;--amber:#e8a317;--pale:#e6eeeb;--line:#deded2;--serif:'Fraunces',Georgia,serif;--sans:'Manrope',Arial,sans-serif;--max:1180px}
 *,*::before,*::after{box-sizing:border-box}
 html{scroll-behavior:smooth;scroll-padding-top:100px}
@@ -422,3 +422,29 @@ address{font-style:normal}
  .nav-right{min-width:0}
 }
 @media(max-width:380px){.brand-wordmark{font-size:23px}.mobile-menu nav a{font-size:26px}}
+
+/* One composed invitation closes the homepage and flows into the footer. */
+.stay-invitation{padding-block:56px;background:var(--deep);border-bottom:1px solid #f6f2eb26}
+.stay-invitation .direct-grid{align-items:center;gap:48px}
+.stay-invitation h2{margin-bottom:0;font-size:clamp(32px,3.4vw,46px)}
+.stay-invitation .invitation-button{background:var(--gold);color:var(--deep);border-color:var(--gold);margin-top:12px}
+body[data-page="home"] .site-footer{padding-top:40px}
+@media(max-width:920px){
+ .hero-layout{justify-content:center}
+ .hero-copy{width:100%;max-width:620px;margin-inline:auto;text-align:center}
+ .hero-copy .eyebrow,.hero-copy>p:not(.eyebrow){margin-inline:auto}
+ .hero-copy .eyebrow{max-width:none}
+ .hero-copy>p:not(.eyebrow){max-width:480px}
+ .hero-actions{justify-content:center}
+}
+@media(max-width:600px){
+ .hero-copy h1{max-width:440px;margin-inline:auto;text-wrap:balance}
+ .hero-copy h1 br{display:none}
+ .hero-copy>p:not(.eyebrow){max-width:360px}
+ .hero-actions{column-gap:20px;row-gap:14px}
+ .stay-invitation{padding-block:38px}
+ .stay-invitation .direct-grid{gap:20px}
+ .stay-invitation h2{font-size:33px}
+ .stay-invitation .invitation-button{margin-top:6px}
+}
+
