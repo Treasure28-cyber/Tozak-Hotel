@@ -474,3 +474,8 @@ body[data-page="home"] .site-footer{padding-top:40px}
  .page-band-background img{object-position:60% center}
 }
 @media(max-width:380px){.page-band-photo .container{width:calc(100% - 32px)}}
+
+/* Let the longer guest-focused headline wrap naturally at every size. */
+.hero-copy h1{font-size:clamp(46px,5.3vw,72px);line-height:1.12;max-width:1000px;margin-inline:auto;text-wrap:balance}
+@media(max-width:920px){.hero-copy h1{font-size:clamp(36px,5.8vw,52px);max-width:650px}}
+@media(max-width:600px){.hero-copy h1{font-size:clamp(32px,8.2vw,46px);max-width:440px;line-height:1.15}.hero-copy>p:not(.eyebrow){max-width:340px}}
