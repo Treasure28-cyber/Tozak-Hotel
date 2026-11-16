@@ -479,3 +479,30 @@ body[data-page="home"] .site-footer{padding-top:40px}
 .hero-copy h1{font-size:clamp(46px,5.3vw,72px);line-height:1.12;max-width:1000px;margin-inline:auto;text-wrap:balance}
 @media(max-width:920px){.hero-copy h1{font-size:clamp(36px,5.8vw,52px);max-width:650px}}
 @media(max-width:600px){.hero-copy h1{font-size:clamp(32px,8.2vw,46px);max-width:440px;line-height:1.15}.hero-copy>p:not(.eyebrow){max-width:340px}}
+
+/* Calm, finite motion. Never delay navigation, scrolling, or form feedback. */
+@media(prefers-reduced-motion:no-preference){
+ .button{transition:transform .22s ease,background-color .22s ease,box-shadow .22s ease}
+ .button:active{transform:translateY(1px)}
+ .room-image img,.preview-tile img,.gallery-tile img{transition:transform .65s cubic-bezier(.22,1,.36,1)}
+ .room-overlay,.gallery-caption{transition:transform .35s ease}
+ .desktop-nav a{transition:color .2s ease,border-color .2s ease}
+ .mobile-menu[open]{animation:tozak-panel-in .3s cubic-bezier(.22,1,.36,1)}
+ .mobile-menu[open] nav a{animation:tozak-link-in .42s cubic-bezier(.22,1,.36,1) backwards}
+ .mobile-menu[open] nav a:nth-child(2){animation-delay:40ms}
+ .mobile-menu[open] nav a:nth-child(3){animation-delay:80ms}
+ .mobile-menu[open] nav a:nth-child(4){animation-delay:120ms}
+ .booking-dialog[open],.lightbox[open]{animation:tozak-dialog-in .28s cubic-bezier(.22,1,.36,1)}
+ .booking-dialog[open]::backdrop,.lightbox[open]::backdrop{animation:tozak-backdrop-in .22s ease}
+ .form-result:not([hidden]){animation:tozak-link-in .25s ease}
+ .mobile-menu nav a:focus-visible{animation:none}
+ @keyframes tozak-panel-in{from{opacity:.5;transform:translateY(-12px)}to{opacity:1;transform:translateY(0)}}
+ @keyframes tozak-link-in{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+ @keyframes tozak-dialog-in{from{opacity:0;transform:translateY(14px) scale(.985)}to{opacity:1;transform:translateY(0) scale(1)}}
+ @keyframes tozak-backdrop-in{from{opacity:0}to{opacity:1}}
+}
+@media(hover:hover) and (pointer:fine) and (prefers-reduced-motion:no-preference){
+ .button:hover{transform:translateY(-2px);box-shadow:0 6px 18px #071e2620}
+ .room-image:hover img,.preview-tile:hover img,.gallery-tile:hover img{transform:scale(1.035)}
+ .room-image:hover .room-overlay,.gallery-tile:hover .gallery-caption{transform:translateY(-3px)}
+}

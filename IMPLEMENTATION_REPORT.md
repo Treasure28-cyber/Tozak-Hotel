@@ -28,3 +28,6 @@
 - Visual/browser QA remains required before claiming full acceptance, WCAG conformance or performance targets. GitHub push does not by itself verify a successful production deployment.
 
 Existing uncommitted source changes were incorporated; the technology stack and business contact information were preserved.
+
+## Motion update
+The site now includes finite hero text entrances and photo settling, one-time section/card reveals, restrained pointer hover effects, and menu/dialog entrances. Native browser animation APIs and IntersectionObserver are used without new dependencies. Content remains visible without these APIs or JavaScript. Reduced-motion preferences disable effects, changes to that preference cancel active animations, and keyboard focus cancels surrounding reveal motion. `npm run check` includes motion regression checks. Browser/device visual QA and frame-rate measurements remain unverified in this environment.

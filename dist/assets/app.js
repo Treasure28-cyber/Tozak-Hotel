@@ -138,3 +138,7 @@ document.querySelectorAll('a[href="/contact/#stay"],.room-detail a[href="#stay"]
 }));
 bookingDialog?.querySelector('.booking-close').addEventListener('click',()=>bookingDialog.close());
 bookingDialog?.addEventListener('close',()=>{syncScroll();bookingTrigger?.focus();});
+
+// Motion is an enhancement; booking and navigation initialize first.
+import { initMotion } from './motion.js';
+initMotion();
