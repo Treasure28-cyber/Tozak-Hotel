@@ -16,12 +16,12 @@ export function initMotion(view = window, doc = document) {
   const reveal = (element, delay = 0) => {
     if (revealed.has(element)) return;
     revealed.add(element);
-    play(element, [{opacity: .18, transform: 'translateY(22px)'}, {opacity: 1, transform: 'translateY(0)'}], {duration: 650, delay, easing: ease, fill: 'backwards'});
+    play(element, [{opacity: .18, translate: '0 22px'}, {opacity: 1, translate: '0 0'}], {duration: 650, delay, easing: ease, fill: 'backwards'});
   };
   const start = () => {
     if (preference.matches || stopped) return;
     doc.querySelectorAll('.hero-copy > *, .page-band-copy > *').forEach((element, index) => reveal(element, Math.min(index, 3) * 85));
-    doc.querySelectorAll('.hero-photo img, .page-band-background img').forEach(element => {
+    doc.querySelectorAll('.hero-photo > img, .page-band-background img').forEach(element => {
       if (revealed.has(element)) return;
       revealed.add(element);
       play(element, [{transform: 'scale(1.045)'}, {transform: 'scale(1)'}], {duration: 1800, easing: ease});
@@ -36,7 +36,7 @@ export function initMotion(view = window, doc = document) {
         reveal(entry.target, Math.min(Math.max(index, 0), 3) * 65);
       });
     }, {threshold: .06});
-    doc.querySelectorAll('.section-intro, .experience-card, .room-card, .welcome-copy, .welcome-photos, .feature-photo, .feature-copy, .preview-tile, .gallery-tile, .direct-grid > div, .contact-details, .contact-form, .faq-grid > div, .practical-grid > div, .detail-grid > *, .room-booking').forEach(element => {
+    doc.querySelectorAll('.centered-heading, .story-copy, .story-media, .section-intro, .experience-card, .room-card, .welcome-copy, .welcome-photos, .feature-photo, .feature-copy, .preview-tile, .gallery-tile, .direct-grid > div, .contact-details, .contact-form, .faq-grid > div, .practical-grid > div, .detail-grid > *, .room-booking').forEach(element => {
       if (!element.hidden && !revealed.has(element)) observer.observe(element);
     });
   };
@@ -59,3 +59,4 @@ export function initMotion(view = window, doc = document) {
     doc.removeEventListener('focusin', onFocus);
   };
 }
+

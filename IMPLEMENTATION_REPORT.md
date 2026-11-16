@@ -31,3 +31,19 @@ Existing uncommitted source changes were incorporated; the technology stack and 
 
 ## Motion update
 The site now includes finite hero text entrances and photo settling, one-time section/card reveals, restrained pointer hover effects, and menu/dialog entrances. Native browser animation APIs and IntersectionObserver are used without new dependencies. Content remains visible without these APIs or JavaScript. Reduced-motion preferences disable effects, changes to that preference cancel active animations, and keyboard focus cancels surrounding reveal motion. `npm run check` includes motion regression checks. Browser/device visual QA and frame-rate measurements remain unverified in this environment.
+
+## Screen-recording adaptation (16 November 2026)
+The supplied 84-second Heliconia Park recording was decoded locally and reviewed through frames sampled across its full duration, plus closer samples of the hero, room cards, editorial sliders and facilities section. No media from the reference was copied into the site.
+
+Adapted patterns:
+- Full-screen three-photo hero with soft crossfades, restrained image drift, numbered navigation and pause/resume. The approved Tozak headline, centered wordmark and mobile menu remain.
+- A concise text/photo introduction before rooms, a centered rooms heading and staggered two-column photographic room cards. Mobile cards stack without the desktop offset.
+- Text/photo stories for the pool and shared spaces, with previous/next controls, photo selection and touch swiping. The story carousels are manual; only the hero rotates automatically.
+- A centered amenities introduction, three framed experience photos and a compact grid of hotel essentials. Shared category content uses Tozak's existing room and amenity data.
+- A shorter gallery preview and a single compact booking invitation. The reference's large closing booking panel was not reproduced because the user previously requested removal of repetitive closing sections. Existing enquiry dialogs and room context are retained.
+
+The reference's golf, residences, sports facilities, restaurant claims and star symbols were not transferred. Tozak's genuine photography, existing colors, business details and unverified-room-photo caveats are preserved. Reviews remain unpublished until supplied.
+
+Slider behavior is covered by controller regression checks: wrapping, manual controls, timer rotation, pause/resume, reduced-motion changes, focus, document visibility, swipe direction, keyboard controls and cleanup. Autoplay pauses on hover/focus, stops after a manual photo selection, and stays disabled under reduced motion; visitors may still navigate manually. Without JavaScript, the first image remains visible and controls remain hidden.
+
+Validation: production build, route/booking checks, motion checks, slider checks and JS syntax checks pass. Browser preview was attempted again but the browser access host remains unavailable. Actual viewport screenshots, Safari/device behavior and performance measurements remain unverified. Video tooling and extracted reference frames are temporary ignored files, not application dependencies or published assets.

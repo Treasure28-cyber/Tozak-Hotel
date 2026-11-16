@@ -142,3 +142,6 @@ bookingDialog?.addEventListener('close',()=>{syncScroll();bookingTrigger?.focus(
 // Motion is an enhancement; booking and navigation initialize first.
 import { initMotion } from './motion.js';
 initMotion();
+
+import { initSliders } from './sliders.js';
+initSliders();
