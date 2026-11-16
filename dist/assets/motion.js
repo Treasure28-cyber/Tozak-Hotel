@@ -16,11 +16,11 @@ export function initMotion(view = window, doc = document) {
   const reveal = (element, delay = 0) => {
     if (revealed.has(element)) return;
     revealed.add(element);
-    play(element, [{opacity: .18, translate: '0 22px'}, {opacity: 1, translate: '0 0'}], {duration: 650, delay, easing: ease, fill: 'backwards'});
+    play(element, [{opacity: .18, translate: '0 22px'}, {opacity: 1, translate: '0 0'}], {duration: 1500, delay, easing: ease, fill: 'backwards'});
   };
   const start = () => {
     if (preference.matches || stopped) return;
-    doc.querySelectorAll('.hero-copy > *, .page-band-copy > *').forEach((element, index) => reveal(element, Math.min(index, 3) * 85));
+    doc.querySelectorAll('.hero-copy > *, .page-band-copy > *').forEach((element, index) => reveal(element, Math.min(index, 3) * 180));
     doc.querySelectorAll('.hero-photo > img, .page-band-background img').forEach(element => {
       if (revealed.has(element)) return;
       revealed.add(element);
@@ -33,7 +33,7 @@ export function initMotion(view = window, doc = document) {
         observer.unobserve(entry.target);
         const siblings = entry.target.parentElement?.children;
         const index = siblings ? Array.prototype.indexOf.call(siblings, entry.target) : 0;
-        reveal(entry.target, Math.min(Math.max(index, 0), 3) * 65);
+        reveal(entry.target, Math.min(Math.max(index, 0), 3) * 160);
       });
     }, {threshold: .06});
     doc.querySelectorAll('.centered-heading, .story-copy, .story-media, .section-intro, .experience-card, .room-card, .welcome-copy, .welcome-photos, .feature-photo, .feature-copy, .preview-tile, .gallery-tile, .direct-grid > div, .contact-details, .contact-form, .faq-grid > div, .practical-grid > div, .detail-grid > *, .room-booking').forEach(element => {

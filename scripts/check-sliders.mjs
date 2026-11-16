@@ -10,14 +10,14 @@ class Element extends EventTarget {
  closest(){return null;}
  emit(type,properties={}){const event=new Event(type,{cancelable:true});for(const [key,value] of Object.entries(properties))Object.defineProperty(event,key,{value});this.dispatchEvent(event);return event;}
 }
-function setup({reduced=false,autoplay=true}={}){
+function setup({reduced=false,autoplay=true,playButton=true}={}){
  const root=new Element(),doc=new Element(),preference=new Element();preference.matches=reduced;doc.hidden=false;
  const timers=new Map();let sequence=0;
  const view={matchMedia:()=>preference,setTimeout:fn=>{timers.set(++sequence,fn);return sequence;},clearTimeout:id=>timers.delete(id)};
- root.dataset.autoplay=autoplay?'7000':'';
+ root.dataset.autoplay=autoplay?'5000':'';
  const slides=Array.from({length:3},(_,i)=>{const slide=new Element();slide.items.img={alt:'Photo '+(i+1)};return slide;});
  const dots=Array.from({length:3},()=>new Element());
- root.items={'[data-slide]':slides,'[data-slide-to]':dots,'.slider-controls':new Element(),'[data-slide-play]':autoplay?new Element():null,'[data-slide-status]':new Element(),'[data-slide-prev]':new Element(),'[data-slide-next]':new Element()};
+ root.items={'[data-slide]':slides,'[data-slide-to]':dots,'.slider-controls':new Element(),'[data-slide-play]':autoplay && playButton?new Element():null,'[data-slide-status]':new Element(),'[data-slide-prev]':new Element(),'[data-slide-next]':new Element()};
  root.items['.slider-controls'].hidden=true;
  const dispose=initSlider(root,view,doc);
  const current=()=>slides.findIndex(slide=>slide.classes.has('is-active'));
@@ -53,7 +53,16 @@ const manual=setup({autoplay:false});assert.equal(manual.timers.size,0,'Editoria
 const quiet=setup({reduced:true});assert.equal(quiet.timers.size,0,'Reduced motion never starts autoplay');quiet.dispose();
 const html=fs.readFileSync('dist/index.html','utf8');
 assert.equal((html.match(/data-slider /g)||[]).length,4,'Hero and three story sliders rendered');
-assert.equal((html.match(/data-autoplay="7000"/g)||[]).length,1,'Only the hero auto-rotates');
+assert.equal((html.match(/data-autoplay="5000"/g)||[]).length,1,'Only the hero auto-rotates');
 assert.ok(html.includes('A Stay Worth Looking Forward To.'));
 assert.ok(html.indexOf('id="welcome"') < html.indexOf('id="rooms"'),'Introduction precedes room browsing');
 console.log('Passed: slider wrapping, autoplay, pause/resume, reduced motion, focus, tab visibility, touch gestures, keyboard and reference layout.');
+
+assert.ok(!html.includes('data-slide-play'),'No play/pause button is rendered');
+assert.equal((html.match(/class="slider-arrows"/g)||[]).length,4,'Each slider groups its navigation arrows');
+const noPlay=setup({playButton:false});
+assert.equal(noPlay.timers.size,1,'Hero rotates without a play button');
+noPlay.tick();assert.equal(noPlay.current(),1);
+noPlay.root.items['[data-slide-next]'].emit('click');
+assert.equal(noPlay.timers.size,0,'Manual navigation still stops rotation without a play button');
+noPlay.dispose();
