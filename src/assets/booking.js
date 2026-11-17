@@ -1,3 +1,4 @@
+import { rooms } from './rooms.js';
 export function localToday(now = new Date()) {
   return `${now.getFullYear()}-${String(now.getMonth()+1).padStart(2,'0')}-${String(now.getDate()).padStart(2,'0')}`;
 }
@@ -6,7 +7,7 @@ export function validDate(value) {
   const date = new Date(value+'T12:00:00Z');
   return !Number.isNaN(date.getTime()) && date.toISOString().slice(0,10) === value;
 }
-export function validateEnquiry(data,kind,today = localToday()) {
+export function validateEnquiry(data,kind,today = localToday(), roomData = rooms) {
   const errors = {};
   if(kind === 'contact') {
     if(!data.name?.trim()) errors.name = 'Please enter your name.';
@@ -22,7 +23,11 @@ export function validateEnquiry(data,kind,today = localToday()) {
     else if(validDate(data.checkin) && data.checkout <= data.checkin) errors.checkout = 'Check-out must be after check-in.';
   }
   if(kind === 'availability' && !['1','2','3','4','5+'].includes(data.guests)) errors.guests = 'Please choose the number of guests.';
-  if(kind === 'availability' && !['Help me choose','Single Room','Double Deluxe','Executive Double','Continental Suite'].includes(data.room)) errors.room = 'Please choose a room preference.';
+  if(kind === 'availability') {
+    const room=roomData.find(room=>room.name===data.room);
+    if(data.room!=='Help me choose' && !room) errors.room='Please choose a room preference.';
+    if(room?.verifiedFields?.includes('maxGuests') && Number.isInteger(room.maxGuests) && Number.parseInt(data.guests,10)>room.maxGuests) errors.guests=`This room accommodates up to ${room.maxGuests} guests. Choose another room or call us about multiple rooms.`;
+  }
   return errors;
 }
 export function displayDate(value) {
@@ -33,6 +38,8 @@ export function messageForEnquiry(data,kind) {
   if(kind === 'contact') lines.push(`Name: ${data.name.trim()}`,`Contact: ${data.contact.trim()}`);
   if(data.checkin) lines.push(`Check-in: ${displayDate(data.checkin)}`);
   if(data.checkout) lines.push(`Check-out: ${displayDate(data.checkout)}`);
+  const nights=stayNights(data);
+  if(nights) lines.push(`Nights: ${nights}`);
   if(data.guests) lines.push(`Guests: ${data.guests}`);
   if(data.room) lines.push(`Room preference: ${data.room}`);
   if(data.message?.trim()) lines.push(`Message: ${data.message.trim()}`);
@@ -42,4 +49,13 @@ export function messageForEnquiry(data,kind) {
 export function whatsappUrl(number,message) {
   if(!/^\d{7,15}$/.test(number)) throw new Error('Invalid WhatsApp destination');
   return `https://wa.me/${number}?text=${encodeURIComponent(message)}`;
+}
+
+export function stayNights(data) {
+ if(!validDate(data.checkin||'') || !validDate(data.checkout||'') || data.checkout<=data.checkin) return null;
+ return Math.round((Date.parse(data.checkout+'T12:00:00Z')-Date.parse(data.checkin+'T12:00:00Z'))/86400000);
+}
+export function enquirySummary(data) {
+ const nights=stayNights(data);
+ return [data.room, data.checkin && data.checkout ? displayDate(data.checkin)+' – '+displayDate(data.checkout):'', nights?`${nights} night${nights===1?'':'s'}`:'',data.guests?`${data.guests} guest${data.guests==='1'?'':'s'}`:''].filter(Boolean).join(' · ');
 }

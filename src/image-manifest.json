@@ -1,0 +1,308 @@
+{
+  "bar.jpg": {
+    "width": 141,
+    "height": 101,
+    "variants": [
+      {
+        "file": "responsive/bar-141.webp",
+        "width": 141,
+        "height": 101,
+        "bytes": 2718
+      }
+    ]
+  },
+  "courtyard.jpg": {
+    "width": 400,
+    "height": 355,
+    "variants": [
+      {
+        "file": "responsive/courtyard-360.webp",
+        "width": 360,
+        "height": 320,
+        "bytes": 17354
+      },
+      {
+        "file": "responsive/courtyard-400.webp",
+        "width": 400,
+        "height": 355,
+        "bytes": 22330
+      }
+    ]
+  },
+  "fitness.jpg": {
+    "width": 400,
+    "height": 355,
+    "variants": [
+      {
+        "file": "responsive/fitness-360.webp",
+        "width": 360,
+        "height": 320,
+        "bytes": 16268
+      },
+      {
+        "file": "responsive/fitness-400.webp",
+        "width": 400,
+        "height": 355,
+        "bytes": 19126
+      }
+    ]
+  },
+  "garden.webp": {
+    "width": 680,
+    "height": 382,
+    "variants": [
+      {
+        "file": "responsive/garden-360.webp",
+        "width": 360,
+        "height": 202,
+        "bytes": 13750
+      },
+      {
+        "file": "responsive/garden-640.webp",
+        "width": 640,
+        "height": 360,
+        "bytes": 36468
+      },
+      {
+        "file": "responsive/garden-680.webp",
+        "width": 680,
+        "height": 382,
+        "bytes": 46046
+      }
+    ]
+  },
+  "lounge.jpg": {
+    "width": 400,
+    "height": 400,
+    "variants": [
+      {
+        "file": "responsive/lounge-360.webp",
+        "width": 360,
+        "height": 360,
+        "bytes": 14762
+      },
+      {
+        "file": "responsive/lounge-400.webp",
+        "width": 400,
+        "height": 400,
+        "bytes": 17624
+      }
+    ]
+  },
+  "pool-day.jpg": {
+    "width": 400,
+    "height": 400,
+    "variants": [
+      {
+        "file": "responsive/pool-day-360.webp",
+        "width": 360,
+        "height": 360,
+        "bytes": 27120
+      },
+      {
+        "file": "responsive/pool-day-400.webp",
+        "width": 400,
+        "height": 400,
+        "bytes": 31572
+      }
+    ]
+  },
+  "pool-enhanced.webp": {
+    "width": 1254,
+    "height": 1254,
+    "variants": [
+      {
+        "file": "responsive/pool-enhanced-360.webp",
+        "width": 360,
+        "height": 360,
+        "bytes": 34904
+      },
+      {
+        "file": "responsive/pool-enhanced-640.webp",
+        "width": 640,
+        "height": 640,
+        "bytes": 87672
+      },
+      {
+        "file": "responsive/pool-enhanced-1254.webp",
+        "width": 1254,
+        "height": 1254,
+        "bytes": 246562
+      }
+    ]
+  },
+  "pool-night.jpg": {
+    "width": 400,
+    "height": 332,
+    "variants": [
+      {
+        "file": "responsive/pool-night-360.webp",
+        "width": 360,
+        "height": 299,
+        "bytes": 18288
+      },
+      {
+        "file": "responsive/pool-night-400.webp",
+        "width": 400,
+        "height": 332,
+        "bytes": 21848
+      }
+    ]
+  },
+  "room-neutral-ai-v1.webp": {
+    "width": 1756,
+    "height": 895,
+    "variants": [
+      {
+        "file": "responsive/room-neutral-ai-v1-360.webp",
+        "width": 360,
+        "height": 183,
+        "bytes": 10406
+      },
+      {
+        "file": "responsive/room-neutral-ai-v1-640.webp",
+        "width": 640,
+        "height": 326,
+        "bytes": 26128
+      },
+      {
+        "file": "responsive/room-neutral-ai-v1-1756.webp",
+        "width": 1756,
+        "height": 895,
+        "bytes": 124624
+      }
+    ]
+  },
+  "room-oak.jpg": {
+    "width": 635,
+    "height": 355,
+    "variants": [
+      {
+        "file": "responsive/room-oak-360.webp",
+        "width": 360,
+        "height": 201,
+        "bytes": 10504
+      },
+      {
+        "file": "responsive/room-oak-635.webp",
+        "width": 635,
+        "height": 355,
+        "bytes": 24606
+      }
+    ]
+  },
+  "room-twin.jpg": {
+    "width": 600,
+    "height": 246,
+    "variants": [
+      {
+        "file": "responsive/room-twin-360.webp",
+        "width": 360,
+        "height": 148,
+        "bytes": 10636
+      },
+      {
+        "file": "responsive/room-twin-600.webp",
+        "width": 600,
+        "height": 246,
+        "bytes": 22410
+      }
+    ]
+  },
+  "room-warm-desk-ai-v1.webp": {
+    "width": 1756,
+    "height": 895,
+    "variants": [
+      {
+        "file": "responsive/room-warm-desk-ai-v1-360.webp",
+        "width": 360,
+        "height": 183,
+        "bytes": 15340
+      },
+      {
+        "file": "responsive/room-warm-desk-ai-v1-640.webp",
+        "width": 640,
+        "height": 326,
+        "bytes": 36742
+      },
+      {
+        "file": "responsive/room-warm-desk-ai-v1-1756.webp",
+        "width": 1756,
+        "height": 895,
+        "bytes": 168878
+      }
+    ]
+  },
+  "room-warm-front-ai-v1.webp": {
+    "width": 1756,
+    "height": 895,
+    "variants": [
+      {
+        "file": "responsive/room-warm-front-ai-v1-360.webp",
+        "width": 360,
+        "height": 183,
+        "bytes": 13086
+      },
+      {
+        "file": "responsive/room-warm-front-ai-v1-640.webp",
+        "width": 640,
+        "height": 326,
+        "bytes": 31998
+      },
+      {
+        "file": "responsive/room-warm-front-ai-v1-1756.webp",
+        "width": 1756,
+        "height": 895,
+        "bytes": 152246
+      }
+    ]
+  },
+  "room-warm-window-ai-v1.webp": {
+    "width": 1756,
+    "height": 895,
+    "variants": [
+      {
+        "file": "responsive/room-warm-window-ai-v1-360.webp",
+        "width": 360,
+        "height": 183,
+        "bytes": 13172
+      },
+      {
+        "file": "responsive/room-warm-window-ai-v1-640.webp",
+        "width": 640,
+        "height": 326,
+        "bytes": 30552
+      },
+      {
+        "file": "responsive/room-warm-window-ai-v1-1756.webp",
+        "width": 1756,
+        "height": 895,
+        "bytes": 128896
+      }
+    ]
+  },
+  "sitting-room-ai-v2.webp": {
+    "width": 1756,
+    "height": 895,
+    "variants": [
+      {
+        "file": "responsive/sitting-room-ai-v2-360.webp",
+        "width": 360,
+        "height": 183,
+        "bytes": 7914
+      },
+      {
+        "file": "responsive/sitting-room-ai-v2-640.webp",
+        "width": 640,
+        "height": 326,
+        "bytes": 17274
+      },
+      {
+        "file": "responsive/sitting-room-ai-v2-1756.webp",
+        "width": 1756,
+        "height": 895,
+        "bytes": 82150
+      }
+    ]
+  }
+}

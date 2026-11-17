@@ -36,7 +36,7 @@ export function initMotion(view = window, doc = document) {
         reveal(entry.target, Math.min(Math.max(index, 0), 3) * 160);
       });
     }, {threshold: .06});
-    doc.querySelectorAll('.centered-heading, .story-copy, .story-media, .section-intro, .experience-card, .room-card, .welcome-copy, .welcome-photos, .feature-photo, .feature-copy, .preview-tile, .gallery-tile, .direct-grid > div, .contact-details, .contact-form, .faq-grid > div, .practical-grid > div, .detail-grid > *, .room-booking').forEach(element => {
+    doc.querySelectorAll('.amenities-grid > li, .centered-heading, .story-copy, .story-media, .section-intro, .experience-card, .room-card, .welcome-copy, .welcome-photos, .feature-photo, .feature-copy, .preview-tile, .gallery-tile, .direct-grid > div, .contact-details, .contact-form, .faq-grid > div, .practical-grid > div, .detail-grid > *, .room-booking').forEach(element => {
       if (!element.hidden && !revealed.has(element)) observer.observe(element);
     });
   };

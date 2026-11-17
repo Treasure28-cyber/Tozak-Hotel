@@ -52,17 +52,23 @@ hero.dispose();assert.equal(hero.timers.size,0);
 const manual=setup({autoplay:false});assert.equal(manual.timers.size,0,'Editorial sliders do not autoplay');manual.dispose();
 const quiet=setup({reduced:true});assert.equal(quiet.timers.size,0,'Reduced motion never starts autoplay');quiet.dispose();
 const html=fs.readFileSync('dist/index.html','utf8');
-assert.equal((html.match(/data-slider /g)||[]).length,4,'Hero and three story sliders rendered');
+assert.equal((html.match(/data-slider /g)||[]).length,2,'Hero and introduction sliders rendered');
 assert.equal((html.match(/data-autoplay="5000"/g)||[]).length,1,'Only the hero auto-rotates');
 assert.ok(html.includes('A Stay Worth Looking Forward To.'));
 assert.ok(html.indexOf('id="welcome"') < html.indexOf('id="rooms"'),'Introduction precedes room browsing');
 console.log('Passed: slider wrapping, autoplay, pause/resume, reduced motion, focus, tab visibility, touch gestures, keyboard and reference layout.');
 
 assert.ok(!html.includes('data-slide-play'),'No play/pause button is rendered');
-assert.equal((html.match(/class="slider-arrows"/g)||[]).length,4,'Each slider groups its navigation arrows');
+assert.equal((html.match(/class="slider-arrows"/g)||[]).length,2,'Each slider groups its navigation arrows');
 const noPlay=setup({playButton:false});
 assert.equal(noPlay.timers.size,1,'Hero rotates without a play button');
 noPlay.tick();assert.equal(noPlay.current(),1);
 noPlay.root.items['[data-slide-next]'].emit('click');
 assert.equal(noPlay.timers.size,0,'Manual navigation still stops rotation without a play button');
 noPlay.dispose();
+
+assert.ok(!html.includes('home-gallery'),'No repeated homepage gallery preview');
+assert.ok(!html.includes('experience-card'),'No duplicate photographic amenity cards');
+assert.ok(!html.includes('id="unwind"'),'Shared spaces consolidated into introduction');
+assert.ok(html.includes('class="amenities-grid" id="pool"'),'Large amenities grid preserves old facilities anchor');
+assert.equal((html.match(/class="amenity-name"/g)||[]).length,6,'Six labelled amenities');

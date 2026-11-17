@@ -1,6 +1,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import assert from 'node:assert/strict';
+import { photos } from '../src/content.mjs';
 import { validateEnquiry, messageForEnquiry, whatsappUrl, validDate, localToday } from '../src/assets/booking.js';
 const routes = ['', 'rooms', 'gallery', 'contact', ...['single-room','double-deluxe','executive-double','continental-suite'].map(id=>'rooms/'+id)];
 const root = path.resolve('dist');
@@ -52,8 +53,8 @@ const url = new URL(whatsappUrl('2348064180488',message));
 assert.equal(url.searchParams.get('text'),message);
 assert.ok(message.includes('Double Deluxe') && message.includes('20 Dec 2026') && message.includes('Guests: 2'));
 assert.throws(()=>whatsappUrl('[2348064180488]',message));
-assert.equal((fs.readFileSync('dist/gallery/index.html','utf8').match(/data-photo="/g)||[]).length,9);
-console.log(`Passed: 8 routes, ${references} local references, structured data, form labels, 9 gallery photos and booking validation.`);
+assert.equal((fs.readFileSync('dist/gallery/index.html','utf8').match(/data-photo="/g)||[]).length,photos.length);
+console.log(`Passed: 8 routes, ${references} local references, structured data, form labels, ${photos.length} gallery photos and booking validation.`);
 
 for(const [route,target] of [['about','/#welcome'],['facilities','/#pool']]) assert.ok(fs.readFileSync('dist/'+route+'/index.html','utf8').includes('content="0;url='+target+'"'));
 for(const id of ['single-room','double-deluxe','executive-double','continental-suite']) {
@@ -67,3 +68,8 @@ console.log('Passed: retired redirects, four detail routes, booking forms and un
 assert.ok(validateEnquiry({...stay,room:'Unknown category'},'availability','2026-10-14').room);
 const special=messageForEnquiry({...stay,message:'Arrival & request: late + luggage'},'availability');
 assert.equal(new URL(whatsappUrl('2348064180488',special)).searchParams.get('text'),special);
+
+for(const file of fs.readdirSync('dist/assets').filter(file=>file.endsWith('.js'))) {
+ const source=fs.readFileSync('dist/assets/'+file,'utf8');
+ for(const match of source.matchAll(/from ['"](\.\/[^'"]+)['"]/g))assert.ok(fs.existsSync(path.resolve('dist/assets',match[1])),file+': module dependency '+match[1]);
+}

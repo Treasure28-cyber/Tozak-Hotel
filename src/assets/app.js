@@ -1,4 +1,4 @@
-import { localToday, validDate, validateEnquiry, messageForEnquiry, whatsappUrl } from './booking.js';
+import { initEnquiryForms, initBookingNavigation } from './enquiry-ui.js';
 
 const menu = document.querySelector('#mobile-menu');
 const menuToggle = document.querySelector('.menu-toggle');
@@ -17,49 +17,8 @@ menu?.addEventListener('close',() => {
 menu?.querySelectorAll('nav a').forEach(link => link.addEventListener('click',() => menu.close()));
 window.addEventListener('resize',() => { if(window.innerWidth > 920 && menu?.open) menu.close(); });
 
-document.querySelectorAll('[data-booking-form]').forEach(form => {
-  const checkin = form.elements.checkin;
-  const checkout = form.elements.checkout;
-  const today = localToday();
-  checkin.min = today;
-  checkout.min = today;
-  const result = form.querySelector('.form-result');
-  const fields = [...form.querySelectorAll('input,select,textarea')];
-  function showError(field,message) {
-    const output = field.parentElement.querySelector('.field-error');
-    if(output) output.textContent = message || '';
-    field.setAttribute('aria-invalid',message?'true':'false');
-  }
-  fields.forEach(field => field.addEventListener('input',() => {
-    showError(field,'');
-    result.hidden = true;
-  }));
-  checkin.addEventListener('change',() => {
-    if(validDate(checkin.value)) {
-      const next = new Date(checkin.value+'T12:00:00Z');
-      next.setUTCDate(next.getUTCDate()+1);
-      checkout.min = next.toISOString().slice(0,10);
-    } else checkout.min = today;
-    result.hidden = true;
-  });
-  form.addEventListener('submit',event => {
-    event.preventDefault();
-    const data = Object.fromEntries(new FormData(form));
-    const kind = form.dataset.bookingForm;
-    const errors = validateEnquiry(data,kind);
-    fields.forEach(field => showError(field,errors[field.name]));
-    if(Object.keys(errors).length) {
-      result.hidden = true;
-      form.elements[Object.keys(errors)[0]].focus();
-      return;
-    }
-    const url = whatsappUrl(document.body.dataset.whatsapp,messageForEnquiry(data,kind));
-    const link = result.querySelector('[data-message-link]');
-    link.href = url;
-    result.hidden = false;
-    link.focus();
-  });
-});
+initEnquiryForms();
+initBookingNavigation(window,document,syncScroll);
 
 const tiles = [...document.querySelectorAll('[data-photo]')];
 const lightbox = document.querySelector('#photo-lightbox');
@@ -72,7 +31,7 @@ function showPhoto(tile) {
   const image = lightbox.querySelector('#lightbox-image');
   image.src = source.src;
   image.alt = source.alt;
-  lightbox.querySelector('#lightbox-title').textContent = tile.querySelector('.gallery-caption>span').textContent;
+  lightbox.querySelector('#lightbox-title').textContent = tile.querySelector('.gallery-caption>span').textContent + (tile.dataset.enhanced==='true'?' · AI-enhanced':'');
   lightbox.querySelector('#lightbox-position').textContent = `${visibleTiles.indexOf(tile)+1} / ${visibleTiles.length}`;
 }
 function movePhoto(direction) {
@@ -86,6 +45,10 @@ document.querySelectorAll('[data-filter]').forEach(button => button.addEventList
   visibleTiles = tiles.filter(tile => !tile.hidden);
   document.querySelector('#gallery-count').textContent = `${visibleTiles.length} photograph${visibleTiles.length===1?'':'s'}`;
 }));
+const requestedCategory = new URLSearchParams(window.location.search).get('category');
+const requestedFilter = [...document.querySelectorAll('[data-filter]')].find(button=>button.dataset.filter===requestedCategory);
+requestedFilter?.click();
+
 tiles.forEach(tile => tile.addEventListener('click',() => {
   previousFocus = tile;
   showPhoto(tile);
@@ -124,21 +87,6 @@ const siteHeader = document.querySelector('.site-header');
 const updateHeader = () => siteHeader?.classList.toggle('is-scrolled',window.scrollY > 40);
 window.addEventListener('scroll',updateHeader,{passive:true});
 updateHeader();
-const bookingDialog = document.querySelector('#booking-dialog');
-let bookingTrigger;
-const selectedRoom = document.body.dataset.page.startsWith('rooms/') ? document.querySelector('h1')?.textContent : '';
-if(selectedRoom) document.querySelectorAll('[name="room"]').forEach(select=>select.value=selectedRoom);
-document.querySelectorAll('a[href="/contact/#stay"],.room-detail a[href="#stay"]').forEach(link=>link.addEventListener('click',event=>{
-  if(!bookingDialog) return;
-  event.preventDefault();
-  if(menu?.open) menu.close();
-  bookingTrigger=link;
-  bookingDialog.showModal();
-  syncScroll();
-}));
-bookingDialog?.querySelector('.booking-close').addEventListener('click',()=>bookingDialog.close());
-bookingDialog?.addEventListener('close',()=>{syncScroll();bookingTrigger?.focus();});
-
 // Motion is an enhancement; booking and navigation initialize first.
 import { initMotion } from './motion.js';
 initMotion();

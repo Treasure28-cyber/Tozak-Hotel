@@ -1,0 +1,50 @@
+﻿import assert from 'node:assert/strict';
+import fs from 'node:fs';
+import { rooms } from '../src/assets/rooms.js';
+import { verifiedRoomFacts, roomRate, roomPhotos } from '../src/room-presentation.mjs';
+import { renderReviews, publishedReviews } from '../src/review-presentation.mjs';
+import { validateEnquiry, messageForEnquiry, stayNights } from '../src/assets/booking.js';
+for(const room of rooms){
+ assert.equal(roomRate(room),null,'Unconfirmed rates stay hidden');
+ assert.deepEqual(verifiedRoomFacts(room),[],'Unconfirmed specs stay hidden');
+ const html=fs.readFileSync(`dist/rooms/${room.id}/index.html`,'utf8');
+ assert.equal((html.match(/data-booking-form="availability"/g)||[]).length,1,'One enquiry form per room');
+ assert.ok(!html.includes('id="booking-dialog"'),'Room page has no competing modal');
+ assert.ok(html.includes(`value="${room.name}" selected`),'Room selected in server HTML');
+ assert.ok(html.includes('Photographs may show another room category'),'Photo uncertainty is disclosed');
+ assert.ok(!html.includes('name="name"') && !html.includes('name="contact"'),'No mandatory personal fields');
+}
+const fixture={...rooms[0],bed:'Fixture bed',maxGuests:2,breakfast:false,verifiedFields:['bed','maxGuests','breakfast'],rate:{verified:true,amount:12345,currency:'NGN',kind:'starting'},photos:[{file:'pending.jpg',categoryVerified:false},{file:'approved.jpg',categoryVerified:true}]};
+assert.equal(verifiedRoomFacts(fixture).length,3);
+assert.equal(verifiedRoomFacts(fixture)[2].value,'Not included');
+assert.match(roomRate(fixture),/^From /);
+assert.ok(roomRate(fixture).includes('12,345'));
+assert.deepEqual(roomPhotos(fixture).map(p=>p.file),['approved.jpg']);
+const stay={checkin:'2099-12-31',checkout:'2100-01-02',guests:'3',room:fixture.name};
+assert.ok(validateEnquiry(stay,'availability','2026-11-17',[fixture]).guests,'Verified capacity constrains enquiry');
+assert.ok(!validateEnquiry(stay,'availability','2026-11-17',[{...fixture,verifiedFields:[]}]).guests,'Unverified capacity does not masquerade as a rule');
+assert.equal(stayNights(stay),2);assert.match(messageForEnquiry(stay,'availability'),/Nights: 2/);
+assert.equal(stayNights({...stay,checkout:stay.checkin}),null);
+const review={text:'Fixture feedback <script>bad()</script>',author:'Test & Example',sourceName:'Test source',sourceUrl:'https://example.com/review',date:'2026-11-01',rating:4,verified:true,status:'approved',permissionToPublish:true};
+assert.equal(renderReviews([]),'');
+assert.equal(renderReviews([{...review,status:'draft'}]),'');
+assert.equal(renderReviews([{...review,verified:false}]),'');
+assert.equal(renderReviews([{...review,permissionToPublish:false}]),'');
+assert.equal(publishedReviews([null,{text:25}]).length,0);
+const rendered=renderReviews([review]);
+assert.ok(rendered.includes('The stay, in their words.'));
+assert.ok(rendered.includes('Rated 4 out of 5'));
+assert.ok(rendered.includes('Test &amp; Example'));
+assert.ok(rendered.includes('&lt;script&gt;') && !rendered.includes('<script>'));
+assert.ok(!renderReviews([{...review,sourceUrl:'javascript:alert(1)'}]).includes('href="javascript:'));
+assert.ok(!renderReviews([{...review,rating:99}]).includes('review-rating'));
+assert.ok(!fs.readFileSync('dist/index.html','utf8').includes('guest-reviews'),'No empty or invented review section');
+const contact=fs.readFileSync('dist/contact/index.html','utf8');
+assert.equal((contact.match(/data-booking-form="availability"/g)||[]).length,1);
+assert.ok(!contact.includes('id="booking-dialog"'));
+const manifest=JSON.parse(fs.readFileSync('src/image-manifest.json','utf8'));
+for(const [file,image] of Object.entries(manifest))for(const variant of image.variants){
+ assert.ok(variant.width<=image.width,'No source upscaling');
+ assert.ok(fs.existsSync('dist/assets/images/'+variant.file),'Responsive image exists');
+}
+console.log('Passed: single room/contact enquiry flow, verified facts/rates, capacity rules, review approval/safety, empty fallback and responsive assets.');

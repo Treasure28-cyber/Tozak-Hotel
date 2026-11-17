@@ -1,3 +1,4 @@
+import { enhancedPhotos } from './enhanced-photos.mjs';
 export const hotel = {
   name: 'Tozak Hotel',
   phone: '0806 418 0488',
@@ -14,12 +15,7 @@ export const hotel = {
 
 // Room categories come from the hotel listing PDF supplied by the user.
 // Rates, exact image-to-category assignments, bed sizes and occupancy need hotel confirmation.
-export const rooms = [
-  { id: 'single-room', name: 'Single Room', note: "The room that gets out of your way", description: "Everything you need. Nothing you don’t. The room that lets you get on with your stay.", image: 'room-oak.jpg' },
-  { id: 'double-deluxe', name: 'Double Deluxe', note: "Room to actually breathe", description: "More space, the same good value. The room you book when one night turns into two.", image: 'room-oak.jpg' },
-  { id: 'executive-double', name: 'Executive Double', note: "Built for the work trip that earns a good night", description: "Long day. Early start tomorrow. The Executive Double is built for exactly this kind of trip.", image: 'room-twin.jpg' },
-  { id: 'continental-suite', name: 'Continental Suite', note: "When the stay deserves more than ordinary", description: "When the occasion calls for more. The suite stay that makes the whole trip worth it.", image: 'room-twin.jpg' }
-];
+export { rooms } from './assets/rooms.js';
 
 export const amenities = [
   { icon: 'pool', name: 'Outdoor pool', description: 'A refreshing change of pace, right here at the hotel.' },
@@ -40,6 +36,8 @@ export const photos = [
   { file: 'fitness.jpg', category: 'spaces', title: 'A look at the fitness space', alt: 'The supplied Tozak Hotel fitness room with treadmills and exercise equipment' },
   { file: 'bar.jpg', category: 'spaces', title: 'Around the hotel', alt: 'The bar shelves in a supplied Tozak Hotel photograph' },
   { file: 'garden.webp', category: 'exterior', title: 'Outside at Tozak', alt: 'The hotel grounds with a lawn, neighbouring buildings and a colourful inflatable slide' }
+,
+  ...enhancedPhotos
 ];
 
 export const faqs = [
@@ -48,8 +46,15 @@ export const faqs = [
   ['Is breakfast included?', 'Breakfast is available. Please ask our team whether it is included in your chosen room rate, and confirm serving times when booking.'],
   ['What time can I check in or check out?', 'Please confirm check-in and checkout times with our team before arrival. If you need an early arrival or a late departure, include it in your enquiry.'],
   ['What is the cancellation policy?', 'Ask our team for the terms that apply to your booking, including deposits, payment and cancellation, before confirming your stay.'],
+  ['Can I use the pool, and is parking available?', 'Free parking is listed among the hotel amenities. Ask our team about pool opening times, access conditions and any charges before your visit.'],
+  ['Can I arrange laundry?', 'Laundry service is available. Confirm the charges and turnaround time with our team when you enquire.'],
   ['Can I ask about a longer stay?', 'Of course. Send us your preferred dates and any special requests so we can discuss the room options with you.']
 ];
 
-// Publish only authentic reviews with an attribution and original source URL.
+// Reviews require verified:true, status:"approved", permissionToPublish:true.
+// Fields: text, author, rating (optional 1–5), sourceName, sourceUrl (optional HTTPS), date (optional YYYY-MM-DD).
+// See CLIENT_CONFIRMATION.md for source/permission requirements.
 export const reviews = [];
+
+// Unknown policies are intentionally unset; see CLIENT_CONFIRMATION.md.
+export const policies = {checkin:null,checkout:null,cancellation:null,payment:null,poolAccess:null,security:null};
